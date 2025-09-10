@@ -44,7 +44,10 @@ ws.onmessage = async ({ data }) => {
 };
 
 pc.onicecandidate = e => {
-  if (e.candidate) ws.send(JSON.stringify({ ice: e.candidate }));
+  if (e.candidate) {
+    console.log("ICE candidate:", e.candidate.candidate);
+    ws.send(JSON.stringify({ ice: e.candidate }));
+  }
 };
 
 // tạo offer khi connect
