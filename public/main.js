@@ -1,6 +1,21 @@
 const ws = new WebSocket(window.SIGNALING_SERVER);
-iceServers: [{   urls: [ "stun:hk-turn1.xirsys.com" ]}, {   username: "VbQ2uqFnKNi_OXlCe8isbSgLip3dUz92pgwJzn13pbrL2apaKcafouPxLVFT-SnIAAAAAGjBonhBbWlu",   credential: "6100b5ee-8e60-11f0-922c-0242ac120004",   urls: [       "turn:hk-turn1.xirsys.com:80?transport=udp",       "turn:hk-turn1.xirsys.com:3478?transport=udp",       "turn:hk-turn1.xirsys.com:80?transport=tcp",       "turn:hk-turn1.xirsys.com:3478?transport=tcp",       "turns:hk-turn1.xirsys.com:443?transport=tcp",       "turns:hk-turn1.xirsys.com:5349?transport=tcp"   ]}]
-
+const pc = new RTCPeerConnection({
+  iceServers: [
+    { urls: [ "stun:hk-turn1.xirsys.com" ] },
+    {
+      username: "VbQ2uqFnKNi_OXlCe8isbSgLip3dUz92pgwJzn13pbrL2apaKcafouPxLVFT-SnIAAAAAGjBonhBbWlu",
+      credential: "6100b5ee-8e60-11f0-922c-0242ac120004",
+      urls: [
+        "turn:hk-turn1.xirsys.com:80?transport=udp",
+        "turn:hk-turn1.xirsys.com:3478?transport=udp",
+        "turn:hk-turn1.xirsys.com:80?transport=tcp",
+        "turn:hk-turn1.xirsys.com:3478?transport=tcp",
+        "turns:hk-turn1.xirsys.com:443?transport=tcp",
+        "turns:hk-turn1.xirsys.com:5349?transport=tcp"
+      ]
+    }
+  ]
+});
 const localVideo = document.getElementById("local");
 const remoteVideo = document.getElementById("remote");
 
