@@ -4,11 +4,14 @@ const ws = new WebSocket(window.SIGNALING_SERVER);
 // 🔑 Tạo RTCPeerConnection với STUN + TURN
 const pc = new RTCPeerConnection({
   iceServers: [
-    { urls: "stun:stun.l.google.com:19302" },   // STUN public
+
+    { urls: "stun:stun.l.google.com:19302" },
+    { urls: "stun:stun1.l.google.com:19302" },
+
     {
-      urls: "turn:127.0.0.1:3478",             // TURN local Docker
-      username: "test",
-      credential: "123456"
+      urls: "turn:your-coturn-server-ip:3478",
+      username: "your_turn_username", // Username bạn đã cấu hình trong coturn
+      credential: "your_turn_password" // Password bạn đã cấu hình
     }
   ]
 });
