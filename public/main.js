@@ -4,21 +4,22 @@ const ws = new WebSocket(window.SIGNALING_SERVER);
 // 🔑 Tạo RTCPeerConnection với STUN + TURN
 const pc = new RTCPeerConnection({
   iceServers: [
-    { urls: ["stun:stun.l.google.com:19302"] },
+    { urls: "stun:stun.l.google.com:19302" },   // STUN public
     {
-      urls: [
-        "turn:hk-turn1.xirsys.com:80?transport=udp",
-        "turn:hk-turn1.xirsys.com:3478?transport=udp",
-        "turn:hk-turn1.xirsys.com:80?transport=tcp",
-        "turn:hk-turn1.xirsys.com:3478?transport=tcp",
-        "turns:hk-turn1.xirsys.com:443?transport=tcp",
-        "turns:hk-turn1.xirsys.com:5349?transport=tcp"
-      ],
-      username: "VbQ2uqFnKNi_OXlCe8isbSgLip3dUz92pgwJzn13pbrL2apaKcafouPxLVFT-SnIAAAAAGjBonhBbWlu",
-      credential: "6100b5ee-8e60-11f0-922c-0242ac120004"
+      urls: "turn:127.0.0.1:3478",             // TURN local Docker
+      username: "test",
+      credential: "123456"
     }
   ]
 });
+
+// Test: add media
+navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+  .then(stream => {
+    stream.getTracks().forEach(track => pc.addTrack(track, stream));
+    // attach stream to <video> element if needed
+  })
+  .catch(console.error);
 
 // Video element
 const localVideo = document.getElementById("local");
